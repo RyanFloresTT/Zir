@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 public class ConditionManager {
-    private List<ICondition> conditions = new List<ICondition>();
+    List<ICondition> conditions = new();
 
     public void AddCondition(ICondition condition) {
         conditions.Add(condition);

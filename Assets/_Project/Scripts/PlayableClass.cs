@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayableClass {
     protected MultiplierManager multiplierManager;
     protected EffectManager effectManager;
-    protected ConditionManager conditionManager;
     protected List<Talent> talents;
     protected List<Spell> abilities;
     protected int talentPoints;
@@ -17,7 +15,6 @@ public class PlayableClass {
     public PlayableClass(Entity entity) {
         talentPoints = 0;
         effectManager = new EffectManager(entity);
-        conditionManager = new ConditionManager();
         multiplierManager = new MultiplierManager();
         talents = new();
         abilities = new();
@@ -25,6 +22,7 @@ public class PlayableClass {
         
         levelManager.OnLevelUp += HandleLevelUp;
         InitializeAbilityModifiers();
+        effectManager.AddEffect(new FireRingEffect(entity));
     }
     
     void InitializeAbilityModifiers() {
@@ -39,14 +37,14 @@ public class PlayableClass {
         levelManager.GainExperience(amount);
     }
 
-    public virtual void LearnTalent(Talent talent) {
+    public void LearnTalent(Talent talent) {
         if (talentPoints < talent.TalentPointCost) return;
         talents.Add(talent);
         talent.Learn();
         talentPoints -= talent.TalentPointCost;
     }
 
-    public virtual void ImproveAbility(string abilityName, float damageMultiplier) {
+    public void ImproveAbility(string abilityName, float damageMultiplier) {
         multiplierManager.AddAbilityMultiplier(abilityName, damageMultiplier);
     }
 
@@ -55,6 +53,7 @@ public class PlayableClass {
     }
 
     public void FixedTick() {
-        
+        effectManager.ApplyEffects();
+        effectManager.TickEffects();
     }
 }

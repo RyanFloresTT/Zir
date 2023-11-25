@@ -1,22 +1,44 @@
 using UnityEngine;
 using Utilities;
 
-public class FireRingEffect : IEffect
-{
-    bool isActive;
-    float interval = 2f;
-    CountdownTimer timer;
+public class FireRingEffect : IEffect {
+    Entity entity;
+    ConditionManager conditionManager;
+    CountdownTimer pulsingTimer;
+    float interval = 1f;
 
-    public FireRingEffect() {
-        timer = new CountdownTimer(interval);
+    public FireRingEffect(Entity entity) {
+        this.entity = entity;
+        conditionManager = new();
+        conditionManager.AddCondition(new MovingCondition(this.entity));
+        pulsingTimer = new CountdownTimer(interval);
     }
 
     public void Apply(Transform targetTransform) {
-        Debug.Log("Fire ring spawned!");
+        if (conditionManager.AreAllConditionsMet()) {
+            Debug.Log("All Conditions Met");
+            if (!pulsingTimer.IsRunning) {
+                Debug.Log("Timer not running, starting it now...");
+                pulsingTimer.Start();
+                pulsingTimer.OnTimerStart += () => {
+                    SpawnFireRing(entity.transform);
+                };
+                pulsingTimer.OnTimerStop += () => {
+                    Debug.Log("Timer stopped, resetting it now...");
+                    pulsingTimer.Reset();
+                    Apply(targetTransform);
+                };
+                
+            }
+        }
     }
 
-    public bool ConditionsMet(Transform targetTransform) {
-        bool isMoving = targetTransform.GetComponent<Entity>().IsMoving();
-        return isMoving && timer.IsFinished;
+    public void TickEffect() {
+        pulsingTimer.Tick(Time.deltaTime);
     }
+
+    void SpawnFireRing(Transform transform) {
+        Debug.Log($"Fire ring spawned @ {transform.position}!");
+    }
+    
 }

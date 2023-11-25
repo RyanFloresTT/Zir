@@ -1,4 +1,3 @@
-public interface ICondition
-{
+public interface ICondition {
     bool IsMet();
 }

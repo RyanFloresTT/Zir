@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 
 public class EffectManager {
-    List<IEffect> effects = new List<IEffect>();
+    List<IEffect> effects;
     Entity entity;
 
     public EffectManager(Entity entity) {
+        effects = new();
         this.entity = entity;
     }
 
@@ -15,6 +16,12 @@ public class EffectManager {
     public void ApplyEffects() {
         foreach (var effect in effects) {
             effect.Apply(entity.transform);
+        }
+    }
+    
+    public void TickEffects() {
+        foreach (var effect in effects) {
+            effect.TickEffect();
         }
     }
 }

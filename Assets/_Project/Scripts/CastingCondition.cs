@@ -1,15 +1,11 @@
-public class CastingCondition : ICondition
-{
-    private PlayableClass caster;
+public class CastingCondition : ICondition {
+    PlayableClass caster;
 
-    public CastingCondition(PlayableClass caster)
-    {
+    public CastingCondition(PlayableClass caster) {
         this.caster = caster;
     }
 
-    public bool IsMet()
-    {
-        // Example: Check if the player is currently casting
+    public bool IsMet() {
         return caster.IsCasting;
     }
 }

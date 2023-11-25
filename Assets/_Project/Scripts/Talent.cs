@@ -2,12 +2,12 @@ public class Talent {
     public string TalentName { get; protected set; }
     protected MultiplierManager multiplierManager;
     protected EffectManager effectManager;
-    protected int talentPointCost;
+    public int TalentPointCost { get; set; }
 
     public Talent(MultiplierManager multiplierManager, EffectManager effectManager, int talentPointCost) {
         this.multiplierManager = multiplierManager;
         this.effectManager = effectManager;
-        this.talentPointCost = talentPointCost;
+        this.TalentPointCost = talentPointCost;
     }
 
     public virtual void Learn() {

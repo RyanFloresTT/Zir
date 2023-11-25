@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
 public class MultiplierManager {
-    private Dictionary<string, float> abilityMultipliers = new Dictionary<string, float>();
-    private Dictionary<DamageType, float> damageTypeMultipliers = new Dictionary<DamageType, float>();
+    Dictionary<string, float> abilityMultipliers = new Dictionary<string, float>();
+    Dictionary<DamageType, float> damageTypeMultipliers = new Dictionary<DamageType, float>();
 
     public void AddAbilityMultiplier(string abilityName, float modifier) {
         abilityMultipliers[abilityName] = modifier;

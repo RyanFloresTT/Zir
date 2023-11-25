@@ -1,7 +1,12 @@
 using System.Collections.Generic;
 
 public class EffectManager {
-    private List<IEffect> effects = new List<IEffect>();
+    List<IEffect> effects = new List<IEffect>();
+    Entity entity;
+
+    public EffectManager(Entity entity) {
+        this.entity = entity;
+    }
 
     public void AddEffect(IEffect effect) {
         effects.Add(effect);
@@ -9,7 +14,7 @@ public class EffectManager {
 
     public void ApplyEffects() {
         foreach (var effect in effects) {
-            effect.Apply();
+            effect.Apply(entity.transform);
         }
     }
 }

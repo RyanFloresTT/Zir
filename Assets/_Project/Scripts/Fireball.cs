@@ -1,5 +1,5 @@
 public class FireballSpell : Spell {
-    private int manaGenerated;
+    int manaGenerated;
 
     public FireballSpell(int manaGenerated) {
         SpellName = "Fireball";
@@ -9,8 +9,6 @@ public class FireballSpell : Spell {
     }
 
     public override void Cast(PlayableClass player) {
-        if (player is Mage mage) {
-            mage.GenerateMana(manaGenerated);
-        }
+        // Fireball Cast
     }
 }

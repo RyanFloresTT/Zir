@@ -1,3 +1,5 @@
+using UnityEngine;
 public interface IEffect {
-    void Apply();
+    void Apply(Transform transform);
+    bool ConditionsMet(Transform transform);
 }

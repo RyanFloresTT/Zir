@@ -18,6 +18,7 @@ namespace MyTools {
         [MenuItem("Tools/Setup/Import Favorite Assets")]
         public static void ImportFavoriteAssets() {
             Assets.ImportAsset("PrimeTween High-Performance Animations and Sequences.unitypackage", "Kyrylo Kuzyk/Editor ExtensionsAnimation");
+            Assets.ImportAsset("Odin Inspector and Serializer.unitypackage", "Sirenix/Editor ExtensionsSystem");
         }
 
         [MenuItem("Tools/Setup/Install Unity Input System")]

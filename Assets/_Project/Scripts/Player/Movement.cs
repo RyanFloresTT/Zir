@@ -1,32 +1,25 @@
+using System;
+using KBCore.Refs;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
-public class Movement : MonoBehaviour, PlayerInputActions.IPlayerActions {
+public class Movement : MonoBehaviour {
     [SerializeField, Range(0f, 10f)] float speed = 5f;
-    
-    PlayerInputActions inputActions;
-    Vector2 movementInput;
-    Rigidbody2D rb;
+    [SerializeReference] IMovementProvider movementProvider;
+    [SerializeField, Self] Rigidbody2D rb;
 
+    void OnValidate() {
+        this.ValidateRefs();
+    }
     void Awake() {
-        inputActions = new PlayerInputActions();
-        inputActions.Player.SetCallbacks(this);
-        rb = GetComponent<Rigidbody2D>();
+        movementProvider.Initialize();
     }
-
     void OnEnable() {
-        inputActions.Enable();
+        movementProvider.OnEnable();
     }
-
     void OnDisable() {
-        inputActions.Disable();
+        movementProvider.OnDisable();
     }
-
     void FixedUpdate() {
+        var movementInput = movementProvider.GetMovementDirection();
         rb.velocity = movementInput * speed;
-    }
-
-    public void OnMove(InputAction.CallbackContext context) {
-        movementInput = context.ReadValue<Vector2>().normalized;
     }
 }

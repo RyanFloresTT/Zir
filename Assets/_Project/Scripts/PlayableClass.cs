@@ -1,40 +1,60 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayableClass {
-    protected MultiplierManager multiplierManager = new MultiplierManager();
-    protected EffectManager effectManager = new EffectManager();
-    protected ConditionManager conditionManager = new ConditionManager();
-    protected List<Talent> talents = new List<Talent>();
-    protected List<Spell> abilities = new List<Spell>();
+    protected MultiplierManager multiplierManager;
+    protected EffectManager effectManager;
+    protected ConditionManager conditionManager;
+    protected List<Talent> talents;
+    protected List<Spell> abilities;
     protected int talentPoints;
-    protected int talentPointsGainedOnLevelUp = 1; 
-    protected int talentPointCost = 1;
+    protected int talentPointsGainedOnLevelUp = 1;
+    protected LevelManager levelManager;
+    public int ExperiencePoints { get; protected set; }
     public bool IsCasting { get; set; }
 
-    public PlayableClass() {
+    public PlayableClass(Entity entity) {
         talentPoints = 0;
-        conditionManager.AddCondition(new CastingCondition(this));
+        effectManager = new EffectManager(entity);
+        conditionManager = new ConditionManager();
+        multiplierManager = new MultiplierManager();
+        talents = new();
+        abilities = new();
+        levelManager = new();
+        
+        levelManager.OnLevelUp += HandleLevelUp;
+        InitializeAbilityModifiers();
     }
-
-    public virtual void LevelUp() {
-        talentPoints += talentPointsGainedOnLevelUp;
+    
+    void InitializeAbilityModifiers() {
+        foreach (var ability in abilities) {
+            multiplierManager.AddAbilityMultiplier(ability.SpellName, 1.0f);
+        }
+    }
+    void HandleLevelUp(int level) {
+        Debug.Log($"{GetType().Name} leveled up to level {level}");
+    }
+    public void GainExperience(int amount) {
+        levelManager.GainExperience(amount);
     }
 
     public virtual void LearnTalent(Talent talent) {
-        if (talentPoints >= talentPointCost) {
-            talents.Add(talent);
-            talent.Learn();
-            talentPoints -= talentPointCost;
-        }
+        if (talentPoints < talent.TalentPointCost) return;
+        talents.Add(talent);
+        talent.Learn();
+        talentPoints -= talent.TalentPointCost;
     }
 
     public virtual void ImproveAbility(string abilityName, float damageMultiplier) {
         multiplierManager.AddAbilityMultiplier(abilityName, damageMultiplier);
     }
 
-    public virtual void ApplyEffects() {
-        if (conditionManager.AreAllConditionsMet()) {
-            effectManager.ApplyEffects();
-        }
+    public void Tick() {
+         
+    }
+
+    public void FixedTick() {
+        
     }
 }

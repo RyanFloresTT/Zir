@@ -19,17 +19,22 @@ public class Resource {
         RegenerationAmount = regenerationAmount;
         regenerationTimer = new(RegenerationRate);
         regenerationTimer.Start();
-        regenerationTimer.OnTimerStop += () => GainResource(RegenerationAmount);
-        regenerationTimer.OnTimerStop += () => regenerationTimer.Start();
+        regenerationTimer.OnTimerStop += RegenerateResource;
+        regenerationTimer.OnTimerStop += regenerationTimer.Start;
     }
 
     public void GainResource(int amount) {
         Value += amount;
-        if (Value > MaxValue) Value = MaxValue;
+        if (Value > MaxValue) Value = MaxValue; 
         Debug.Log($"{GetType().Name} regenerated {amount} resource");
     }
 
     public void RegenTick() {
         regenerationTimer.Tick(Time.deltaTime);
+    }
+    
+    void RegenerateResource() {
+        if (Value >= MaxValue) return;
+        GainResource(RegenerationAmount);
     }
 }

@@ -5,40 +5,33 @@ public class FireRingEffect : IEffect {
     Entity entity;
     ConditionManager conditionManager;
     CountdownTimer pulsingTimer;
-    float interval = 1f;
+    float interval = 2f;  // Change the interval to 2 seconds
 
     public FireRingEffect(Entity entity) {
         this.entity = entity;
-        conditionManager = new();
+        conditionManager = new ConditionManager();
         conditionManager.AddCondition(new MovingCondition(this.entity));
         pulsingTimer = new CountdownTimer(interval);
+
+        pulsingTimer.OnTimerStart += () => {
+            Apply(entity.transform);
+        };
+
+        pulsingTimer.OnTimerStop += () => {
+            pulsingTimer.Reset();
+        };
     }
 
     public void Apply(Transform targetTransform) {
-        if (conditionManager.AreAllConditionsMet()) {
-            Debug.Log("All Conditions Met");
-            if (!pulsingTimer.IsRunning) {
-                Debug.Log("Timer not running, starting it now...");
-                pulsingTimer.Start();
-                pulsingTimer.OnTimerStart += () => {
-                    SpawnFireRing(entity.transform);
-                };
-                pulsingTimer.OnTimerStop += () => {
-                    Debug.Log("Timer stopped, resetting it now...");
-                    pulsingTimer.Reset();
-                    Apply(targetTransform);
-                };
-                
-            }
-        }
+        Debug.Log($"Fire ring spawned @ {targetTransform.position}!");
     }
 
     public void TickEffect() {
-        pulsingTimer.Tick(Time.deltaTime);
+        if (conditionManager.AreAllConditionsMet()) {
+            pulsingTimer.Tick(Time.deltaTime);
+            if (!pulsingTimer.IsRunning) {
+                pulsingTimer.Start();
+            }
+        }
     }
-
-    void SpawnFireRing(Transform transform) {
-        Debug.Log($"Fire ring spawned @ {transform.position}!");
-    }
-    
 }

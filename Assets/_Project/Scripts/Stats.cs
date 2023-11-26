@@ -9,7 +9,7 @@ public class Stats {
     public int RegenerationRate { get; set; }
     public int RegenerationAmount { get; set; }
     CountdownTimer regenerationTimer;
-    public Stats(int health = 50, int maxHealth = 100, int armor = 0, int moveSpeed = 5, int regenerationRate = 2, int regenerationAmount = 3) {
+    public Stats(int health = 70, int maxHealth = 100, int armor = 0, int moveSpeed = 5, int regenerationRate = 2, int regenerationAmount = 3) {
         Health = health;
         MaxHealth = maxHealth;
         Armor = armor;
@@ -18,8 +18,8 @@ public class Stats {
         RegenerationAmount = regenerationAmount;
         regenerationTimer = new(RegenerationRate);
         regenerationTimer.Start();
-        regenerationTimer.OnTimerStop += () => GainHealth(RegenerationAmount);
-        regenerationTimer.OnTimerStop += () => regenerationTimer.Start();
+        regenerationTimer.OnTimerStop += RegenerateHealth;
+        regenerationTimer.OnTimerStop += regenerationTimer.Start;
     }
 
     public void GainHealth(int amount) {
@@ -30,5 +30,10 @@ public class Stats {
 
     public void RegenTick() {
         regenerationTimer.Tick(Time.deltaTime);
+    }
+    
+    void RegenerateHealth() {
+        if (Health >= MaxHealth) return;
+        GainHealth(RegenerationAmount);
     }
 }

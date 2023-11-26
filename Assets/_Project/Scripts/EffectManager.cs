@@ -12,12 +12,6 @@ public class EffectManager {
     public void AddEffect(IEffect effect) {
         effects.Add(effect);
     }
-
-    public void ApplyEffects() {
-        foreach (var effect in effects) {
-            effect.Apply(entity.transform);
-        }
-    }
     
     public void TickEffects() {
         foreach (var effect in effects) {

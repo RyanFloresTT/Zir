@@ -1,9 +1,9 @@
-using System;
 using KBCore.Refs;
+using Sirenix.OdinInspector;
 using UnityEngine;
 public class Movement : MonoBehaviour {
-    [SerializeField, Range(0f, 10f)] float speed = 5f;
     [SerializeReference] IMovementProvider movementProvider;
+    [SerializeField, Range(0f, 10f)] float speed = 5f;
     [SerializeField, Self] Rigidbody2D rb;
 
     void OnValidate() {

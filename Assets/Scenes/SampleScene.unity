@@ -512,15 +512,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68000b6baf31a164b876baf9bb2a6a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   movementProvider:
-    rid: 7711009751895638020
+    rid: 7711009773693173765
+  speed: 5
   rb: {fileID: 1570100951}
   references:
     version: 2
     RefIds:
-    - rid: 7711009751895638020
-      type: {class: PlayerMovementInput, ns: , asm: Assembly-CSharp}
+    - rid: 7711009773693173765
+      type: {class: PlayerInput, ns: , asm: Assembly-CSharp}
       data: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

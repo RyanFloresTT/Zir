@@ -1,7 +1,8 @@
 public class Mage : PlayableClass {
-    public Mage(Entity entity) : base(entity) {
+    public Mage(Entity entity, IInputProvider inputProvider) : base(entity, inputProvider) {
         InitializeStats(entity);
         InitializeResource(entity);
+        autoAttack = new MageAutoAttack();
     }
 
     void InitializeStats(Entity entity) {

@@ -1,15 +1,19 @@
+using System;
 using KBCore.Refs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : IMovementProvider, PlayerInputActions.IPlayerActions {
+public class PlayerInput : IInputProvider, PlayerInputActions.IPlayerActions {
     PlayerInputActions inputActions;
     Vector2 movementInput;
-    IAutoAttack autoAttack;
+    Camera mainCamera;
+    Vector2 aimInput;
+    public Action HandleAutoAttack { get; set; }
 
     public void Initialize() {
         inputActions = new PlayerInputActions();
         inputActions.Player.SetCallbacks(this);
+        mainCamera = Camera.main;
     }
 
     public void OnEnable() {
@@ -26,17 +30,21 @@ public class PlayerInput : IMovementProvider, PlayerInputActions.IPlayerActions 
 
     public void OnAutoAttack(InputAction.CallbackContext context) {
         if (context.performed) {
-            DoAutoAttack();
+            HandleAutoAttack.Invoke();
         }
     }
 
+    public void OnAim(InputAction.CallbackContext context) {
+        aimInput = context.ReadValue<Vector2>();
+    }
+
+    Vector3 GetMousePosition() {
+        var mousePosition = new Vector3(aimInput.x, aimInput.y, mainCamera.nearClipPlane);
+        var worldPosition = mainCamera.ScreenToWorldPoint(mousePosition);
+        return worldPosition;
+    }
+
+
     public Vector2 GetMovementDirection() => movementInput;
-
-    public void SetAutoAttack(IAutoAttack autoAttack) {
-        this.autoAttack = autoAttack;
-    }
-
-    public void DoAutoAttack() {
-        autoAttack?.PerformAutoAttack();
-    }
+    public Vector3 GetAttackDirection() => GetMousePosition();
 }

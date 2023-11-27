@@ -3,14 +3,15 @@ using UnityEngine;
 public class Player : Entity {
     protected PlayableClass playableClass;
     void Start() {
-        playableClass = new Mage(this);
+        playableClass = new Mage(this, inputProvider);
     }
-
-    void Update() {
+    protected override void Update() {
         playableClass.Tick();
+        base.Update();
     }
 
-    void FixedUpdate() {
+    protected override void FixedUpdate() {
         playableClass.FixedTick();
+        base.FixedUpdate();
     }
 }

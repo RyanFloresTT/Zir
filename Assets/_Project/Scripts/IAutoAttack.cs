@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IAutoAttack {
-    void PerformAutoAttack();
+    void PerformAutoAttack(Vector3 direction);
 }

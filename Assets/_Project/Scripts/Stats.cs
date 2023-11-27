@@ -18,7 +18,7 @@ public class Stats {
         RegenerationAmount = regenerationAmount;
         regenerationTimer = new(RegenerationRate);
         regenerationTimer.Start();
-        regenerationTimer.OnTimerStop += RegenerateHealth;
+        regenerationTimer.OnTimerStart += RegenerateHealth;
         regenerationTimer.OnTimerStop += regenerationTimer.Start;
     }
 

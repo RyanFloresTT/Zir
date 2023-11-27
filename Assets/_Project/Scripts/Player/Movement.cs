@@ -1,8 +1,10 @@
 using KBCore.Refs;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class Movement : MonoBehaviour {
-    [SerializeReference] IMovementProvider movementProvider;
+    [SerializeReference] IInputProvider inputProvider;
     [SerializeField, Range(0f, 10f)] float speed = 5f;
     [SerializeField, Self] Rigidbody2D rb;
 
@@ -10,16 +12,16 @@ public class Movement : MonoBehaviour {
         this.ValidateRefs();
     }
     void Awake() {
-        movementProvider.Initialize();
+        inputProvider.Initialize();
     }
     void OnEnable() {
-        movementProvider.OnEnable();
+        inputProvider.OnEnable();
     }
     void OnDisable() {
-        movementProvider.OnDisable();
+        inputProvider.OnDisable();
     }
     void FixedUpdate() {
-        var movementInput = movementProvider.GetMovementDirection();
+        var movementInput = inputProvider.GetMovementDirection();
         rb.velocity = movementInput * speed;
     }
 }

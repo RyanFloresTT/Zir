@@ -1,19 +1,34 @@
+using KBCore.Refs;
 using UnityEngine;
 
-[RequireComponent(typeof(Movement))]
 public class Entity : MonoBehaviour {
+    [SerializeReference] protected IInputProvider inputProvider;
+    [SerializeField, Range(0f, 10f)] float speed = 5f;
+    [SerializeField, Self] Rigidbody2D rb;
     public Stats EntityStats { get; set; }
     public Resource EntityResource { get; set; }
     
-    void Awake() {
+    protected virtual void Awake() {
         EntityStats = new();
         EntityResource = new();
+        inputProvider.Initialize();
     }
-    void Update() {
+    protected virtual void OnValidate() {
+        this.ValidateRefs();
+    }
+    protected virtual void OnEnable() {
+        inputProvider.OnEnable();
+    }
+    protected virtual void OnDisable() {
+        inputProvider.OnDisable();
+    }
+    protected virtual void Update() {
         EntityStats.RegenTick();
         EntityResource.RegenTick();
     }
-    public bool IsMoving() {
-        return GetComponent<Rigidbody2D>().velocity.magnitude > 0.1f;
+    protected virtual void FixedUpdate() {
+        var movementInput = inputProvider.GetMovementDirection();
+        rb.velocity = movementInput * speed;
     }
+    public bool IsMoving() => rb.velocity.magnitude > 0.1f;
 }

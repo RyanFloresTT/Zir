@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Player : Entity {
-    protected PlayableClass playableClass;
+    PlayableClass playableClass;
+    
     void Start() {
         playableClass = new Mage(this, inputProvider);
     }

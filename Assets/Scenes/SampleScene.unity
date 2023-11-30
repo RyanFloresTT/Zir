@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 1570100952}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,8 +732,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2059050932}
-  - component: {fileID: 2059050931}
   - component: {fileID: 2059050930}
+  - component: {fileID: 2059050931}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -756,7 +756,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -781,16 +781,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputProvider:
-    rid: -2
+    rid: 7711009867881512960
   speed: 5
   rb: {fileID: 2059050930}
-  inputProvider:
-    rid: -2
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7711009867881512960
+      type: {class: BasicEnemyInput, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!4 &2059050932
 Transform:
   m_ObjectHideFlags: 0

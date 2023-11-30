@@ -8,10 +8,12 @@ public class Stats {
     public int MoveSpeed { get; set; }
     public int RegenerationRate { get; set; }
     public int RegenerationAmount { get; set; }
+    public readonly int DefaultHealth;
     CountdownTimer regenerationTimer;
     public Stats(int health = 70, int maxHealth = 100, int armor = 0, int moveSpeed = 5, int regenerationRate = 2, int regenerationAmount = 3) {
         Health = health;
         MaxHealth = maxHealth;
+        DefaultHealth = maxHealth;
         Armor = armor;
         MoveSpeed = moveSpeed;
         RegenerationRate = regenerationRate;

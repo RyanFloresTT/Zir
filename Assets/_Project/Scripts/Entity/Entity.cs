@@ -3,6 +3,7 @@ using KBCore.Refs;
 using UnityEngine;
 
 public class Entity : MonoBehaviour {
+    [Header("Entity")]
     [SerializeReference] protected IInputProvider inputProvider;
     [SerializeField, Range(0f, 10f)] float speed = 5f;
     [SerializeField, Self] Rigidbody2D rb;

@@ -6,6 +6,6 @@ public class HealthStatDecorator : IDecorator {
         this.percentIncrease = percentIncrease;
     }
     public void ApplyDecorator() {
-        entity.EntityStats.MaxHealth += (int)(entity.EntityStats.MaxHealth * percentIncrease);
+        entity.Stats.MaxHealth += (int)(entity.Stats.MaxHealth * percentIncrease);
     }
 }

@@ -1,18 +1,16 @@
 using System;
 using UnityEngine;
 
-public class Enemy : Entity {
+public class Enemy : Character {
+    [SerializeField] ResourceData resourceData;
     PlayableClass playableClass;
-    [Header("Enemy")]
-    [SerializeReference] ITargetProvider targetProvider;
     
     void Start() {
-        playableClass = new Mage(this, inputProvider);
+        playableClass = new Mage(this, inputProvider, resourceData);
     }
     protected override void Update() {
         playableClass.Tick();
         base.Update();
-        targetProvider.GetTarget();
     }
 
     protected override void FixedUpdate() {

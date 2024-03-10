@@ -10,8 +10,8 @@ public class HealthCondition : ICondition {
     }
     public bool IsMet() {
         if (!isAbove) {
-            return entity.EntityStats.Health / entity.EntityStats.MaxHealth > healthPercentage;
+            return entity.Stats.Health / entity.Stats.MaxHealth > healthPercentage;
         }
-        return entity.EntityStats.Health / entity.EntityStats.MaxHealth < healthPercentage;
+        return entity.Stats.Health / entity.Stats.MaxHealth < healthPercentage;
     }
 }

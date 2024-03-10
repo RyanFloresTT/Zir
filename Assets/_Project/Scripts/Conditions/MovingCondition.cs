@@ -1,5 +1,5 @@
 public class MovingCondition : ICondition {
-    Entity entity;
-    public MovingCondition(Entity entity) => this.entity = entity;
-    public bool IsMet() => entity.IsMoving();
+    Character character;
+    public MovingCondition(Character character) => this.character = character;
+    public bool IsMet() => character.IsMoving();
 }

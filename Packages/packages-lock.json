@@ -5,14 +5,14 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "5cc97c7f0085624b6ef57853d70b404440060cef"
+      "hash": "809d23edae0df58fd0f61b4b6f67855c59d1b2fb"
     },
     "com.kylewbanks.scenerefattribute": {
       "version": "git+https://github.com/KyleBanks/scene-ref-attribute",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "b83c1fbbff020f4d29a937eb7ab13af60aabfb11"
+      "hash": "777ecaee68be9a381f0da0a982ebc0dafb28374a"
     },
     "com.kyrylokuzyk.primetween": {
       "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",

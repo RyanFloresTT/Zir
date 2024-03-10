@@ -14,7 +14,7 @@ public class MovementSpeedEffect : IEffect {
 
     public void Apply(Transform transform) {
         if (isEffectApplied) return;
-        entity.EntityStats.MoveSpeed *= 2;
+        entity.Stats.MoveSpeed *= 2;
         isEffectApplied = true;
     }
 

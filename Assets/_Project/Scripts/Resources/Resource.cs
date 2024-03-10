@@ -1,31 +1,29 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Utilities;
 
 public class Resource {
-    public string Name { get; }
-    public int Value { get; set; }
-    public int MaxValue { get; set; }
-    public int RegenerationRate { get; set; }
-    public int RegenerationAmount { get; set; }
+    public string Name { get; } = "Default";
+    public int Current { get; set; } = 0;
+    public int Max { get; set; } = 100;
+    public int RegenRate { get; set; } = 1;
+    public int RegenAmount { get; set; } = 1;
     CountdownTimer regenerationTimer;
 
-    public Resource(string name = "Default", int? value = 0, int maxValue = 100, int regenerationRate = 1, int regenerationAmount = 1) {
-        Name = name;
-        MaxValue = maxValue;
-        Value = value ?? MaxValue;
-        RegenerationRate = regenerationRate;
-        RegenerationAmount = regenerationAmount;
-        regenerationTimer = new(RegenerationRate);
+    public Resource(ResourceData data) {
+        Name = data.name;
+        Max = data.Max;
+        Current = Max;
+        RegenRate = data.RegenRate;
+        RegenAmount = data.RegenAmount;
+        regenerationTimer = new(RegenRate);
         regenerationTimer.Start();
         regenerationTimer.OnTimerStop += RegenerateResource;
         regenerationTimer.OnTimerStop += regenerationTimer.Start;
     }
 
     public void GainResource(int amount) {
-        Value += amount;
-        if (Value > MaxValue) Value = MaxValue; 
+        Current += amount;
+        if (Current > Max) Current = Max; 
         Debug.Log($"{GetType().Name} regenerated {amount} resource");
     }
 
@@ -34,7 +32,7 @@ public class Resource {
     }
     
     void RegenerateResource() {
-        if (Value >= MaxValue) return;
-        GainResource(RegenerationAmount);
+        if (Current >= Max) return;
+        GainResource(RegenAmount);
     }
 }

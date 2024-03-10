@@ -2,19 +2,19 @@ using UnityEngine;
 using Utilities;
 
 public class FireRingEffect : IEffect {
-    Entity entity;
+    Character character;
     ConditionManager conditionManager;
     CountdownTimer pulsingTimer;
     float interval = 2f;  // Change the interval to 2 seconds
 
-    public FireRingEffect(Entity entity) {
-        this.entity = entity;
+    public FireRingEffect(Character character) {
+        this.character = character;
         conditionManager = new ConditionManager();
-        conditionManager.AddCondition(new MovingCondition(this.entity));
+        conditionManager.AddCondition(new MovingCondition(this.character));
         pulsingTimer = new CountdownTimer(interval);
 
         pulsingTimer.OnTimerStart += () => {
-            Apply(entity.transform);
+            Apply(character.transform);
         };
 
         pulsingTimer.OnTimerStop += () => {

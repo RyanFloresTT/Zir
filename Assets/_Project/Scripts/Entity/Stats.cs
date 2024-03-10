@@ -5,12 +5,12 @@ public class Stats {
     public int Health { get; set; }
     public int MaxHealth { get; set; }
     public int Armor { get; set; }
-    public int MoveSpeed { get; set; }
+    public float MoveSpeed { get; set; }
     public int RegenerationRate { get; set; }
     public int RegenerationAmount { get; set; }
     public readonly int DefaultHealth;
     CountdownTimer regenerationTimer;
-    public Stats(int health = 70, int maxHealth = 100, int armor = 0, int moveSpeed = 5, int regenerationRate = 2, int regenerationAmount = 3) {
+    public Stats(int health = 70, int maxHealth = 100, int armor = 0, float moveSpeed = 5f, int regenerationRate = 2, int regenerationAmount = 3) {
         Health = health;
         MaxHealth = maxHealth;
         DefaultHealth = maxHealth;
